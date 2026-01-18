@@ -34,6 +34,13 @@ input{width:70%;padding:14px;border-radius:14px;border:2px solid #475569;backgro
 .incompat{margin-top:8px;color:#f87171;font-size:14px}
 .weight{margin-top:4px;color:#94a3b8;font-size:13px}
 
+.primary-sec{margin-top:12px}
+.primary-sec div{margin-bottom:6px}
+.primary-title{color:#10b981;font-weight:bold}
+.secondary-title{color:#f59e0b;font-weight:bold}
+.item-list{display:flex;flex-wrap:wrap;gap:4px}
+.item-tag{background:#1e293b;padding:4px 8px;border-radius:12px;font-size:12px}
+
 .no{text-align:center;color:#94a3b8;font-size:22px;margin-top:60px}
 </style>
 </head>
@@ -41,7 +48,7 @@ input{width:70%;padding:14px;border-radius:14px;border:2px solid #475569;backgro
 <body>
 
 <h1>📘 ExcellentEnchants Wiki</h1>
-<div class="sub">FULL – ĐÚNG THEO BẢNG WIKI – KHÔNG CẮT</div>
+<div class="sub">FULL – ĐÚNG THEO BẢNG WIKI – + Primary/Secondary Items (Mặc định)</div>
 <div class="counter" id="counter"></div>
 
 <div class="tabs">
@@ -62,102 +69,107 @@ input{width:70%;padding:14px;border-radius:14px;border:2px solid #475569;backgro
 
 <script>
 const enchants = [
-/* ARMOR */
-["Armor","🛡️","Cold Steel","Áp dụng hiệu ứng Mệt mỏi khai thác cho kẻ tấn công.","",3,[],5],
-["Armor","🛡️","Darkness Cloak","Áp dụng hiệu ứng Bóng tối cho kẻ tấn công.","",3,[],10],
-["Armor","🛡️","Elemental Protection","Giảm sát thương từ thuốc và các nguyên tố.","",4,[],10],
-["Armor","🛡️","Fire Shield","Đốt cháy kẻ tấn công.","",4,[],2],
-["Armor","🛡️","Flame Walker","Có thể đi trên dung nham, miễn nhiễm sát thương magma.","Frost Walker",2,[],1],
-["Armor","🛡️","Hardened","Nhận hiệu ứng Kháng cự khi bị tấn công.","",2,[],5],
-["Armor","🛡️","Ice Shield","Đóng băng và làm chậm kẻ tấn công.","",3,[],10],
-["Armor","🛡️","Jumping","Nhận hiệu ứng Nhảy cao.","",2,[],2],
-["Armor","🛡️","Kamikadze","Tạo vụ nổ khi chết.","",3,[],5],
-["Armor","🛡️","Night Vision","Nhận hiệu ứng Nhìn trong bóng tối.","",1,[],1],
-["Armor","🛡️","Rebound","Có hiệu ứng như rơi xuống khối Slime.","Feather Falling",1,[],2],
-["Armor","🛡️","Regrowth","Hồi một lượng máu theo thời gian.","",4,[],2],
-["Armor","🛡️","Saturation","Hồi thanh thức ăn theo thời gian.","",2,[],2],
-["Armor","🛡️","Speed","Nhận hiệu ứng Tốc độ.","",2,[],2],
-["Armor","🛡️","Stopping Force","Giảm bật lùi khi bị tấn công.","",3,[],5],
-["Armor","🛡️","Water Breathing","Nhận hiệu ứng Thở dưới nước.","",1,[],1],
+/* ARMOR - Primary: Chestplate/Leggings/Helmet/Boots; Secondary: Elytra (nếu config bật) */
+["Armor","🛡️","Cold Steel","Áp dụng hiệu ứng Mệt mỏi khai thác cho kẻ tấn công.","",3,"Chestplate,Leggings,Helmet,Boots","Elytra",5],
+["Armor","🛡️","Darkness Cloak","Áp dụng hiệu ứng Bóng tối cho kẻ tấn công.","",3,"Chestplate,Leggings,Helmet,Boots","Elytra",10],
+["Armor","🛡️","Elemental Protection","Giảm sát thương từ thuốc và các nguyên tố.","",4,"Chestplate,Leggings,Helmet,Boots","Elytra",10],
+["Armor","🛡️","Fire Shield","Đốt cháy kẻ tấn công.","",4,"Chestplate,Leggings,Helmet,Boots","Elytra",2],
+["Armor","🛡️","Flame Walker","Có thể đi trên dung nham, miễn nhiễm sát thương magma.","Frost Walker",2,"Boots","Elytra",1],
+["Armor","🛡️","Hardened","Nhận hiệu ứng Kháng cự khi bị tấn công.","",2,"Chestplate,Leggings,Helmet,Boots","Elytra",5],
+["Armor","🛡️","Ice Shield","Đóng băng và làm chậm kẻ tấn công.","",3,"Chestplate,Leggings,Helmet,Boots","Elytra",10],
+["Armor","🛡️","Jumping","Nhận hiệu ứng Nhảy cao.","",2,"Chestplate,Leggings,Helmet,Boots","Elytra",2],
+["Armor","🛡️","Kamikadze","Tạo vụ nổ khi chết.","",3,"Chestplate,Leggings,Helmet,Boots","Elytra",5],
+["Armor","🛡️","Night Vision","Nhận hiệu ứng Nhìn trong bóng tối.","",1,"Helmet","Elytra",1],
+["Armor","🛡️","Rebound","Có hiệu ứng như rơi xuống khối Slime.","Feather Falling",1,"Boots","Elytra",2],
+["Armor","🛡️","Regrowth","Hồi một lượng máu theo thời gian.","",4,"Chestplate,Leggings,Helmet,Boots","Elytra",2],
+["Armor","🛡️","Saturation","Hồi thanh thức ăn theo thời gian.","",2,"Chestplate,Leggings,Helmet,Boots","Elytra",2],
+["Armor","🛡️","Speed","Nhận hiệu ứng Tốc độ.","",2,"Chestplate,Leggings,Helmet,Boots","Elytra",2],
+["Armor","🛡️","Stopping Force","Giảm bật lùi khi bị tấn công.","",3,"Chestplate,Leggings,Helmet,Boots","Elytra",5],
+["Armor","🛡️","Water Breathing","Nhận hiệu ứng Thở dưới nước.","",1,"Helmet","Elytra",1],
 
-/* BOW */
-["Bow","🏹","Bomber","Bắn TNT thay cho mũi tên.","Non-Arrow enchants",3,[],1],
-["Bow","🏹","Confusing Arrows","Mũi tên gây hiệu ứng Buồn nôn.","Non-Arrow enchants",3,[],10],
-["Bow","🏹","Darkness Arrows","Mũi tên gây hiệu ứng Bóng tối.","Non-Arrow enchants",3,[],10],
-["Bow","🏹","Dragonfire Arrows","Mũi tên tạo hiệu ứng Hơi thở rồng.","Non-Arrow enchants",3,[],2],
-["Bow","🏹","Electrified Arrows","Gọi sét khi trúng mục tiêu.","Non-Arrow enchants",3,[],5],
-["Bow","🏹","Ender Bow","Bắn Ngọc Ender thay cho mũi tên.","Non-Arrow enchants",1,[],1],
-["Bow","🏹","Explosive Arrows","Mũi tên phát nổ khi trúng.","Non-Arrow enchants",3,[],5],
-["Bow","🏹","Flare","Đặt một cây đuốc tại vị trí mũi tên rơi.","Non-Arrow enchants",1,[],5],
-["Bow","🏹","Ghast","Bắn cầu lửa thay cho mũi tên.","Non-Arrow enchants",1,[],1],
-["Bow","🏹","Hover","Mũi tên gây hiệu ứng Bay lơ lửng.","Non-Arrow enchants",3,[],10],
-["Bow","🏹","Lingering","Mũi tên để lại hiệu ứng tồn tại.","Non-Arrow enchants",3,[],2],
-["Bow","🏹","Poisoned Arrows","Mũi tên gây hiệu ứng Độc.","Non-Arrow enchants",3,[],5],
-["Bow","🏹","Sniper","Tăng tốc độ bay của mũi tên.","",2,[],10],
-["Bow","🏹","Vampiric Arrows","Hồi máu khi bắn trúng.","Non-Arrow enchants",3,[],2],
-["Bow","🏹","Withered Arrows","Mũi tên gây hiệu ứng Héo mòn.","Non-Arrow enchants",3,[],5],
+/* BOW - Primary: Bow; Secondary: Crossbow (nếu config bật) */
+["Bow","🏹","Bomber","Bắn TNT thay cho mũi tên.","Non-Arrow enchants",3,"Bow","Crossbow",1],
+["Bow","🏹","Confusing Arrows","Mũi tên gây hiệu ứng Buồn nôn.","Non-Arrow enchants",3,"Bow","Crossbow",10],
+["Bow","🏹","Darkness Arrows","Mũi tên gây hiệu ứng Bóng tối.","Non-Arrow enchants",3,"Bow","Crossbow",10],
+["Bow","🏹","Dragonfire Arrows","Mũi tên tạo hiệu ứng Hơi thở rồng.","Non-Arrow enchants",3,"Bow","Crossbow",2],
+["Bow","🏹","Electrified Arrows","Gọi sét khi trúng mục tiêu.","Non-Arrow enchants",3,"Bow","Crossbow",5],
+["Bow","🏹","Ender Bow","Bắn Ngọc Ender thay cho mũi tên.","Non-Arrow enchants",1,"Bow","Crossbow",1],
+["Bow","🏹","Explosive Arrows","Mũi tên phát nổ khi trúng.","Non-Arrow enchants",3,"Bow","Crossbow",5],
+["Bow","🏹","Flare","Đặt một cây đuốc tại vị trí mũi tên rơi.","Non-Arrow enchants",1,"Bow","Crossbow",5],
+["Bow","🏹","Ghast","Bắn cầu lửa thay cho mũi tên.","Non-Arrow enchants",1,"Bow","Crossbow",1],
+["Bow","🏹","Hover","Mũi tên gây hiệu ứng Bay lơ lửng.","Non-Arrow enchants",3,"Bow","Crossbow",10],
+["Bow","🏹","Lingering","Mũi tên để lại hiệu ứng tồn tại.","Non-Arrow enchants",3,"Bow","Crossbow",2],
+["Bow","🏹","Poisoned Arrows","Mũi tên gây hiệu ứng Độc.","Non-Arrow enchants",3,"Bow","Crossbow",5],
+["Bow","🏹","Sniper","Tăng tốc độ bay của mũi tên.","",2,"Bow","Crossbow",10],
+["Bow","🏹","Vampiric Arrows","Hồi máu khi bắn trúng.","Non-Arrow enchants",3,"Bow","Crossbow",2],
+["Bow","🏹","Withered Arrows","Mũi tên gây hiệu ứng Héo mòn.","Non-Arrow enchants",3,"Bow","Crossbow",5],
 
-/* TOOL */
-["Tool","⛏️","Blast Mining","Khai thác khối bằng các vụ nổ.","Tunnel, Veinminer",5,[],2],
-["Tool","⛏️","Glass Breaker","Phá vỡ kính ngay lập tức.","",1,[],10],
-["Tool","⛏️","Haste","Nhận hiệu ứng Đào nhanh khi khai thác.","",3,[],2],
-["Tool","⛏️","Lucky Miner","Nhận nhiều XP hơn khi đào.","",3,[],5],
-["Tool","⛏️","Replanter","Tự động trồng lại cây khi thu hoạch.","",1,[],1],
-["Tool","⛏️","Silk Chest","Rương rơi ra vẫn giữ đồ bên trong.","",1,[],1],
-["Tool","⛏️","Silk Spawner","Có cơ hội nhận Lồng quái vật.","Smelter",1,[],1],
-["Tool","⛏️","Smelter","Tự động nung chảy vật phẩm rơi ra.","Silk Touch, Silk Spawner",5,[],5],
-["Tool","⛏️","Telekinesis","Tự động đưa vật phẩm vào túi.","",1,[],1],
-["Tool","⛏️","Treefeller","Chặt đổ toàn bộ cây.","",1,[],2],
-["Tool","⛏️","Tunnel","Đào theo khu vực.","Veinminer, Blast Mining",3,[],1],
-["Tool","⛏️","Veinminer","Đào toàn bộ mạch quặng.","Tunnel, Blast Mining",3,[],1],
+/* TOOL - Primary: Pickaxe/Axe/Hoe/Shovel */
+["Tool","⛏️","Blast Mining","Khai thác khối bằng các vụ nổ.","Tunnel, Veinminer",5,"Pickaxe","Axe,Shovel,Hoe",2],
+["Tool","⛏️","Glass Breaker","Phá vỡ kính ngay lập tức.","",1,"Pickaxe,Axe,Shovel,Hoe","Shears",10],
+["Tool","⛏️","Haste","Nhận hiệu ứng Đào nhanh khi khai thác.","",3,"Pickaxe,Axe,Shovel,Hoe","Shears",2],
+["Tool","⛏️","Lucky Miner","Nhận nhiều XP hơn khi đào.","",3,"Pickaxe","Axe,Shovel,Hoe",5],
+["Tool","⛏️","Replanter","Tự động trồng lại cây khi thu hoạch.","",1,"Hoe","Axe",1],
+["Tool","⛏️","Silk Chest","Rương rơi ra vẫn giữ đồ bên trong.","",1,"Pickaxe,Axe","Shovel,Hoe",1],
+["Tool","⛏️","Silk Spawner","Có cơ hội nhận Lồng quái vật.","Smelter",1,"Pickaxe","Axe,Shovel",1],
+["Tool","⛏️","Smelter","Tự động nung chảy vật phẩm rơi ra.","Silk Touch, Silk Spawner",5,"Pickaxe,Axe,Shovel,Hoe","Shears",5],
+["Tool","⛏️","Telekinesis","Tự động đưa vật phẩm vào túi.","",1,"Pickaxe,Axe,Shovel,Hoe","Shears",1],
+["Tool","⛏️","Treefeller","Chặt đổ toàn bộ cây.","",1,"Axe","Hoe",2],
+["Tool","⛏️","Tunnel","Đào theo khu vực.","Veinminer, Blast Mining",3,"Pickaxe","Shovel",1],
+["Tool","⛏️","Veinminer","Đào toàn bộ mạch quặng.","Tunnel, Blast Mining",3,"Pickaxe","Axe",1],
 
-/* FISHING */
-["Fishing","🎣","Auto Reel","Tự động giật cần khi cá cắn.","",1,[],1],
-["Fishing","🎣","Curse of Drowned","Có cơ hội câu lên Drowned.","",3,[],5],
-["Fishing","🎣","Double Catch","Tăng gấp đôi vật phẩm câu được.","",3,[],2],
-["Fishing","🎣","River Master","Tăng tầm quăng cần.","",5,[],10],
-["Fishing","🎣","Seasoned Angler","Tăng XP nhận được.","",3,[],5],
-["Fishing","🎣","Survivalist","Tự động nướng cá câu được.","",1,[],2],
+/* FISHING - Primary: Fishing Rod */
+["Fishing","🎣","Auto Reel","Tự động giật cần khi cá cắn.","",1,"Fishing Rod","",1],
+["Fishing","🎣","Curse of Drowned","Có cơ hội câu lên Drowned.","",3,"Fishing Rod","",5],
+["Fishing","🎣","Double Catch","Tăng gấp đôi vật phẩm câu được.","",3,"Fishing Rod","",2],
+["Fishing","🎣","River Master","Tăng tầm quăng cần.","",5,"Fishing Rod","",10],
+["Fishing","🎣","Seasoned Angler","Tăng XP nhận được.","",3,"Fishing Rod","",5],
+["Fishing","🎣","Survivalist","Tự động nướng cá câu được.","",1,"Fishing Rod","",2],
 
-/* WEAPON */
-["Weapon","⚔️","Bane of Netherspawn","Tăng sát thương lên quái Nether.","",5,[],10],
-["Weapon","⚔️","Blindness","Gây hiệu ứng Mù cho mục tiêu.","",2,[],10],
-["Weapon","⚔️","Confusion","Gây hiệu ứng Buồn nôn cho mục tiêu.","",2,[],10],
-["Weapon","⚔️","Cure","Hồi phục Piglin và Dân làng Zombie khi giết.","",3,[],10],
-["Weapon","⚔️","Curse of Death","Có cơ hội chết khi giết người chơi.","",3,[],2],
-["Weapon","⚔️","Cutter","Làm hỏng và rơi giáp của mục tiêu.","",3,[],2],
-["Weapon","⚔️","Decapitator","Có thể nhận đầu của mục tiêu.","",2,[],2],
-["Weapon","⚔️","Double Strike","Có cơ hội gây gấp đôi sát thương.","",2,[],1],
-["Weapon","⚔️","Exhaust","Gây hiệu ứng Đói.","",4,[],10],
-["Weapon","⚔️","Ice Aspect","Đóng băng và làm chậm mục tiêu.","",3,[],10],
-["Weapon","⚔️","Infernus","Đinh ba đốt cháy mục tiêu.","",3,[],10],
-["Weapon","⚔️","Nimble","Tự động đưa đồ rơi vào túi.","",1,[],2],
-["Weapon","⚔️","Paralyze","Gây hiệu ứng Mệt mỏi khai thác.","",5,[],5],
-["Weapon","⚔️","Rage","Nhận hiệu ứng Sức mạnh khi chiến đấu.","",2,[],5],
-["Weapon","⚔️","Rocket","Hất mục tiêu lên không trung.","",3,[],5],
-["Weapon","⚔️","Swiper","Cướp XP của người chơi.","",3,[],2],
-["Weapon","⚔️","Temper","Tăng sát thương khi máu thấp.","",5,[],1],
-["Weapon","⚔️","Thrifty","Rơi trứng sinh quái.","",3,[],2],
-["Weapon","⚔️","Thunder","Gọi sét gây thêm sát thương.","",5,[],5],
-["Weapon","⚔️","Vampire","Hút máu mục tiêu.","",3,[],2],
-["Weapon","⚔️","Venom","Gây hiệu ứng Độc.","",2,[],10],
-["Weapon","⚔️","Village Defender","Tăng sát thương lên Illager.","",5,[],10],
-["Weapon","⚔️","Wisdom","Nhận nhiều XP hơn từ quái.","",5,[],5],
-["Weapon","⚔️","Wither","Gây hiệu ứng Héo mòn.","",2,[],5],
+/* WEAPON - Primary: Sword; Secondary: Axe/Trident (nếu config bật) */
+["Weapon","⚔️","Bane of Netherspawn","Tăng sát thương lên quái Nether.","",5,"Sword","Axe,Trident",10],
+["Weapon","⚔️","Blindness","Gây hiệu ứng Mù cho mục tiêu.","",2,"Sword","Axe,Trident",10],
+["Weapon","⚔️","Confusion","Gây hiệu ứng Buồn nôn cho mục tiêu.","",2,"Sword","Axe,Trident",10],
+["Weapon","⚔️","Cure","Hồi phục Piglin và Dân làng Zombie khi giết.","",3,"Sword","Axe,Trident",10],
+["Weapon","⚔️","Curse of Death","Có cơ hội chết khi giết người chơi.","",3,"Sword","Axe,Trident",2],
+["Weapon","⚔️","Cutter","Làm hỏng và rơi giáp của mục tiêu.","",3,"Sword","Axe,Trident",2],
+["Weapon","⚔️","Decapitator","Có thể nhận đầu của mục tiêu.","",2,"Sword","Axe,Trident",2],
+["Weapon","⚔️","Double Strike","Có cơ hội gây gấp đôi sát thương.","",2,"Sword","Axe,Trident",1],
+["Weapon","⚔️","Exhaust","Gây hiệu ứng Đói.","",4,"Sword","Axe,Trident",10],
+["Weapon","⚔️","Ice Aspect","Đóng băng và làm chậm mục tiêu.","",3,"Sword","Axe,Trident",10],
+["Weapon","⚔️","Infernus","Đinh ba đốt cháy mục tiêu.","",3,"Trident","Sword,Axe",10],
+["Weapon","⚔️","Nimble","Tự động đưa đồ rơi vào túi.","",1,"Sword","Axe,Trident",2],
+["Weapon","⚔️","Paralyze","Gây hiệu ứng Mệt mỏi khai thác.","",5,"Sword","Axe,Trident",5],
+["Weapon","⚔️","Rage","Nhận hiệu ứng Sức mạnh khi chiến đấu.","",2,"Sword","Axe,Trident",5],
+["Weapon","⚔️","Rocket","Hất mục tiêu lên không trung.","",3,"Sword","Axe,Trident",5],
+["Weapon","⚔️","Swiper","Cướp XP của người chơi.","",3,"Sword","Axe,Trident",2],
+["Weapon","⚔️","Temper","Tăng sát thương khi máu thấp.","",5,"Sword","Axe,Trident",1],
+["Weapon","⚔️","Thrifty","Rơi trứng sinh quái.","",3,"Sword","Axe,Trident",2],
+["Weapon","⚔️","Thunder","Gọi sét gây thêm sát thương.","",5,"Sword","Axe,Trident",5],
+["Weapon","⚔️","Vampire","Hút máu mục tiêu.","",3,"Sword","Axe,Trident",2],
+["Weapon","⚔️","Venom","Gây hiệu ứng Độc.","",2,"Sword","Axe,Trident",10],
+["Weapon","⚔️","Village Defender","Tăng sát thương lên Illager.","",5,"Sword","Axe,Trident",10],
+["Weapon","⚔️","Wisdom","Nhận nhiều XP hơn từ quái.","",5,"Sword","Axe,Trident",5],
+["Weapon","⚔️","Wither","Gây hiệu ứng Héo mòn.","",2,"Sword","Axe,Trident",5],
 
-/* UNIVERSAL */
-["Universal","🌀","Curse of Breaking","Mất độ bền nhanh hơn.","Unbreaking",3,[],10],
-["Universal","🌀","Curse of Fragility","Không thể dùng đe sửa vật phẩm.","",1,[],10],
-["Universal","🌀","Curse of Mediocrity","Loại bỏ enchant của đồ rơi.","",3,[],5],
-["Universal","🌀","Curse of Misfortune","Giảm chiến lợi phẩm về 0.","Fortune, Looting",3,[],5],
-["Universal","🌀","Restore","Cứu vật phẩm khỏi vỡ 1 lần.","",3,[],2],
-["Universal","🌀","Soulbound","Không rơi vật phẩm khi chết.","Curse of Vanishing",1,[],2],
+/* UNIVERSAL - Primary/Secondary: Tất cả tool/weapon/armor/bow */
+["Universal","🌀","Curse of Breaking","Mất độ bền nhanh hơn.","Unbreaking",3,"All","All",10],
+["Universal","🌀","Curse of Fragility","Không thể dùng đe sửa vật phẩm.","",1,"All","All",10],
+["Universal","🌀","Curse of Mediocrity","Loại bỏ enchant của đồ rơi.","",3,"All","All",5],
+["Universal","🌀","Curse of Misfortune","Giảm chiến lợi phẩm về 0.","Fortune, Looting",3,"All","All",5],
+["Universal","🌀","Restore","Cứu vật phẩm khỏi vỡ 1 lần.","",3,"All","All",2],
+["Universal","🌀","Soulbound","Không rơi vật phẩm khi chết.","Curse of Vanishing",1,"All","All",2],
 ];
 
 function rarity(weight){
  if(weight<=2) return ["Mythic","rarity-mythic"];
  if(weight<=5) return ["Rare","rarity-rare"];
  return ["Common","rarity-common"];
+}
+
+function renderItems(items){
+ if(!items) return '';
+ return items.split(',').map(item => `<span class="item-tag">${item}</span>`).join('');
 }
 
 let tab="ALL";
@@ -173,14 +185,18 @@ function render(){
   total++;
   if(q && !e[2].toLowerCase().includes(q)) return;
   shown++;
-  const r=rarity(e[7]);
+  const r=rarity(e[9]); // Weight di chuyển lên index 9
   html+=`
   <div class="card">
     <div class="name"><span class="icon">${e[1]}</span>${e[2]}</div>
     <div class="level">Max level: ${e[5]} • <span class="${r[1]}">${r[0]}</span></div>
     <div class="desc">${e[3]}</div>
     <div class="incompat">❌ Incompatible: ${e[4]||"None"}</div>
-    <div class="weight">Weight: ${e[7]}</div>
+    <div class="primary-sec">
+      <div><span class="primary-title">🟢 Primary Items:</span> <div class="item-list">${renderItems(e[6])}</div></div>
+      <div><span class="secondary-title">🟡 Secondary Items:</span> <div class="item-list">${renderItems(e[7])}</div></div>
+    </div>
+    <div class="weight">Weight: ${e[9]}</div>
   </div>`;
  });
  counter.textContent = tab==="ALL"
