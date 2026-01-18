@@ -27,13 +27,6 @@ input{width:70%;padding:14px;border-radius:14px;border:2px solid #475569;backgro
 .rarity-rare{color:#60a5fa}
 .rarity-mythic{color:#c084fc}
 
-.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
-.tag{background:#1e293b;padding:6px 12px;border-radius:16px;font-size:13px}
-
-.desc{line-height:1.6}
-.incompat{margin-top:8px;color:#f87171;font-size:14px}
-.weight{margin-top:4px;color:#94a3b8;font-size:13px}
-
 .primary-sec{margin-top:12px}
 .primary-sec div{margin-bottom:6px}
 .primary-title{color:#10b981;font-weight:bold}
@@ -48,7 +41,7 @@ input{width:70%;padding:14px;border-radius:14px;border:2px solid #475569;backgro
 <body>
 
 <h1>📘 ExcellentEnchants Wiki</h1>
-<div class="sub">FULL – ĐÚNG THEO BẢNG WIKI – + Primary/Secondary Items (Mặc định)</div>
+<div class="sub">FULL – ĐÚNG THEO BẢNG WIKI – Primary/Secondary Items (Tùy chỉnh logic vanilla-like)</div>
 <div class="counter" id="counter"></div>
 
 <div class="tabs">
@@ -69,25 +62,25 @@ input{width:70%;padding:14px;border-radius:14px;border:2px solid #475569;backgro
 
 <script>
 const enchants = [
-/* ARMOR - Primary: Chestplate/Leggings/Helmet/Boots; Secondary: Elytra (nếu config bật) */
-["Armor","🛡️","Cold Steel","Áp dụng hiệu ứng Mệt mỏi khai thác cho kẻ tấn công.","",3,"Chestplate,Leggings,Helmet,Boots","Elytra",5],
-["Armor","🛡️","Darkness Cloak","Áp dụng hiệu ứng Bóng tối cho kẻ tấn công.","",3,"Chestplate,Leggings,Helmet,Boots","Elytra",10],
+/* ARMOR - Giữ nguyên chỉnh sửa giới hạn của bạn */
+["Armor","🛡️","Cold Steel","Áp dụng hiệu ứng Mệt mỏi khai thác cho kẻ tấn công.","",3,"Chestplate","Elytra",5],
+["Armor","🛡️","Darkness Cloak","Áp dụng hiệu ứng Bóng tối cho kẻ tấn công.","",3,"Chestplate","Elytra",10],
 ["Armor","🛡️","Elemental Protection","Giảm sát thương từ thuốc và các nguyên tố.","",4,"Chestplate,Leggings,Helmet,Boots","Elytra",10],
-["Armor","🛡️","Fire Shield","Đốt cháy kẻ tấn công.","",4,"Chestplate,Leggings,Helmet,Boots","Elytra",2],
+["Armor","🛡️","Fire Shield","Đốt cháy kẻ tấn công.","",4,"Chestplate","Elytra",2],
 ["Armor","🛡️","Flame Walker","Có thể đi trên dung nham, miễn nhiễm sát thương magma.","Frost Walker",2,"Boots","Elytra",1],
-["Armor","🛡️","Hardened","Nhận hiệu ứng Kháng cự khi bị tấn công.","",2,"Chestplate,Leggings,Helmet,Boots","Elytra",5],
-["Armor","🛡️","Ice Shield","Đóng băng và làm chậm kẻ tấn công.","",3,"Chestplate,Leggings,Helmet,Boots","Elytra",10],
-["Armor","🛡️","Jumping","Nhận hiệu ứng Nhảy cao.","",2,"Chestplate,Leggings,Helmet,Boots","Elytra",2],
-["Armor","🛡️","Kamikadze","Tạo vụ nổ khi chết.","",3,"Chestplate,Leggings,Helmet,Boots","Elytra",5],
+["Armor","🛡️","Hardened","Nhận hiệu ứng Kháng cự khi bị tấn công.","",2,"Chestplate","Elytra",5],
+["Armor","🛡️","Ice Shield","Đóng băng và làm chậm kẻ tấn công.","",3,"Chestplate","Elytra",10],
+["Armor","🛡️","Jumping","Nhận hiệu ứng Nhảy cao.","",2,"Boots","Elytra",2],
+["Armor","🛡️","Kamikadze","Tạo vụ nổ khi chết.","",3,"Chestplate","Elytra",5],
 ["Armor","🛡️","Night Vision","Nhận hiệu ứng Nhìn trong bóng tối.","",1,"Helmet","Elytra",1],
 ["Armor","🛡️","Rebound","Có hiệu ứng như rơi xuống khối Slime.","Feather Falling",1,"Boots","Elytra",2],
-["Armor","🛡️","Regrowth","Hồi một lượng máu theo thời gian.","",4,"Chestplate,Leggings,Helmet,Boots","Elytra",2],
-["Armor","🛡️","Saturation","Hồi thanh thức ăn theo thời gian.","",2,"Chestplate,Leggings,Helmet,Boots","Elytra",2],
-["Armor","🛡️","Speed","Nhận hiệu ứng Tốc độ.","",2,"Chestplate,Leggings,Helmet,Boots","Elytra",2],
-["Armor","🛡️","Stopping Force","Giảm bật lùi khi bị tấn công.","",3,"Chestplate,Leggings,Helmet,Boots","Elytra",5],
+["Armor","🛡️","Regrowth","Hồi một lượng máu theo thời gian.","",4,"Chestplate","Elytra",2],
+["Armor","🛡️","Saturation","Hồi thanh thức ăn theo thời gian.","",2,"Helmet","Elytra",2],
+["Armor","🛡️","Speed","Nhận hiệu ứng Tốc độ.","",2,"Boots","Elytra",2],
+["Armor","🛡️","Stopping Force","Giảm bật lùi khi bị tấn công.","",3,"Leggings","Elytra",5],
 ["Armor","🛡️","Water Breathing","Nhận hiệu ứng Thở dưới nước.","",1,"Helmet","Elytra",1],
 
-/* BOW - Primary: Bow; Secondary: Crossbow (nếu config bật) */
+/* BOW */
 ["Bow","🏹","Bomber","Bắn TNT thay cho mũi tên.","Non-Arrow enchants",3,"Bow","Crossbow",1],
 ["Bow","🏹","Confusing Arrows","Mũi tên gây hiệu ứng Buồn nôn.","Non-Arrow enchants",3,"Bow","Crossbow",10],
 ["Bow","🏹","Darkness Arrows","Mũi tên gây hiệu ứng Bóng tối.","Non-Arrow enchants",3,"Bow","Crossbow",10],
@@ -104,21 +97,21 @@ const enchants = [
 ["Bow","🏹","Vampiric Arrows","Hồi máu khi bắn trúng.","Non-Arrow enchants",3,"Bow","Crossbow",2],
 ["Bow","🏹","Withered Arrows","Mũi tên gây hiệu ứng Héo mòn.","Non-Arrow enchants",3,"Bow","Crossbow",5],
 
-/* TOOL - Primary: Pickaxe/Axe/Hoe/Shovel */
-["Tool","⛏️","Blast Mining","Khai thác khối bằng các vụ nổ.","Tunnel, Veinminer",5,"Pickaxe","Axe,Shovel,Hoe",2],
+/* TOOL */
+["Tool","⛏️","Blast Mining","Khai thác khối bằng các vụ nổ.","Tunnel, Veinminer",5,"Pickaxe","","Axe,Shovel,Hoe",2],
 ["Tool","⛏️","Glass Breaker","Phá vỡ kính ngay lập tức.","",1,"Pickaxe,Axe,Shovel,Hoe","Shears",10],
 ["Tool","⛏️","Haste","Nhận hiệu ứng Đào nhanh khi khai thác.","",3,"Pickaxe,Axe,Shovel,Hoe","Shears",2],
-["Tool","⛏️","Lucky Miner","Nhận nhiều XP hơn khi đào.","",3,"Pickaxe","Axe,Shovel,Hoe",5],
-["Tool","⛏️","Replanter","Tự động trồng lại cây khi thu hoạch.","",1,"Hoe","Axe",1],
+["Tool","⛏️","Lucky Miner","Nhận nhiều XP hơn khi đào.","",3,"Pickaxe","","Axe,Shovel,Hoe",5],
+["Tool","⛏️","Replanter","Tự động trồng lại cây khi thu hoạch.","",1,"Hoe","",1],
 ["Tool","⛏️","Silk Chest","Rương rơi ra vẫn giữ đồ bên trong.","",1,"Pickaxe,Axe","Shovel,Hoe",1],
-["Tool","⛏️","Silk Spawner","Có cơ hội nhận Lồng quái vật.","Smelter",1,"Pickaxe","Axe,Shovel",1],
+["Tool","⛏️","Silk Spawner","Có cơ hội nhận Lồng quái vật.","Smelter",1,"Pickaxe","",1],
 ["Tool","⛏️","Smelter","Tự động nung chảy vật phẩm rơi ra.","Silk Touch, Silk Spawner",5,"Pickaxe,Axe,Shovel,Hoe","Shears",5],
 ["Tool","⛏️","Telekinesis","Tự động đưa vật phẩm vào túi.","",1,"Pickaxe,Axe,Shovel,Hoe","Shears",1],
-["Tool","⛏️","Treefeller","Chặt đổ toàn bộ cây.","",1,"Axe","Hoe",2],
-["Tool","⛏️","Tunnel","Đào theo khu vực.","Veinminer, Blast Mining",3,"Pickaxe","Shovel",1],
-["Tool","⛏️","Veinminer","Đào toàn bộ mạch quặng.","Tunnel, Blast Mining",3,"Pickaxe","Axe",1],
+["Tool","⛏️","Treefeller","Chặt đổ toàn bộ cây.","",1,"Axe","",2],
+["Tool","⛏️","Tunnel","Đào theo khu vực.","Veinminer, Blast Mining",3,"Pickaxe,Axe,Hoe","Shovel",1],
+["Tool","⛏️","Veinminer","Đào toàn bộ mạch quặng.","Tunnel, Blast Mining",3,"Pickaxe","",1],
 
-/* FISHING - Primary: Fishing Rod */
+/* FISHING */
 ["Fishing","🎣","Auto Reel","Tự động giật cần khi cá cắn.","",1,"Fishing Rod","",1],
 ["Fishing","🎣","Curse of Drowned","Có cơ hội câu lên Drowned.","",3,"Fishing Rod","",5],
 ["Fishing","🎣","Double Catch","Tăng gấp đôi vật phẩm câu được.","",3,"Fishing Rod","",2],
@@ -126,7 +119,7 @@ const enchants = [
 ["Fishing","🎣","Seasoned Angler","Tăng XP nhận được.","",3,"Fishing Rod","",5],
 ["Fishing","🎣","Survivalist","Tự động nướng cá câu được.","",1,"Fishing Rod","",2],
 
-/* WEAPON - Primary: Sword; Secondary: Axe/Trident (nếu config bật) */
+/* WEAPON */
 ["Weapon","⚔️","Bane of Netherspawn","Tăng sát thương lên quái Nether.","",5,"Sword","Axe,Trident",10],
 ["Weapon","⚔️","Blindness","Gây hiệu ứng Mù cho mục tiêu.","",2,"Sword","Axe,Trident",10],
 ["Weapon","⚔️","Confusion","Gây hiệu ứng Buồn nôn cho mục tiêu.","",2,"Sword","Axe,Trident",10],
@@ -152,11 +145,11 @@ const enchants = [
 ["Weapon","⚔️","Wisdom","Nhận nhiều XP hơn từ quái.","",5,"Sword","Axe,Trident",5],
 ["Weapon","⚔️","Wither","Gây hiệu ứng Héo mòn.","",2,"Sword","Axe,Trident",5],
 
-/* UNIVERSAL - Primary/Secondary: Tất cả tool/weapon/armor/bow */
+/* UNIVERSAL - Chuẩn hóa tên item tiếng Anh cho nhất quán */
 ["Universal","🌀","Curse of Breaking","Mất độ bền nhanh hơn.","Unbreaking",3,"All","All",10],
 ["Universal","🌀","Curse of Fragility","Không thể dùng đe sửa vật phẩm.","",1,"All","All",10],
-["Universal","🌀","Curse of Mediocrity","Loại bỏ enchant của đồ rơi.","",3,"All","All",5],
-["Universal","🌀","Curse of Misfortune","Giảm chiến lợi phẩm về 0.","Fortune, Looting",3,"All","All",5],
+["Universal","🌀","Curse of Mediocrity","Loại bỏ enchant của đồ rơi.","",3,"Sword,Axe,Bow,Crossbow,Trident,Mace","Pickaxe,Shovel,Hoe,Shears",5],
+["Universal","🌀","Curse of Misfortune","Giảm chiến lợi phẩm về 0.","Fortune, Looting",3,"Sword,Axe,Bow,Crossbow,Trident,Mace","Pickaxe,Shovel,Hoe,Shears",5],
 ["Universal","🌀","Restore","Cứu vật phẩm khỏi vỡ 1 lần.","",3,"All","All",2],
 ["Universal","🌀","Soulbound","Không rơi vật phẩm khi chết.","Curse of Vanishing",1,"All","All",2],
 ];
@@ -168,8 +161,8 @@ function rarity(weight){
 }
 
 function renderItems(items){
- if(!items) return '';
- return items.split(',').map(item => `<span class="item-tag">${item}</span>`).join('');
+ if(!items || items === "") return 'None';
+ return items.split(',').map(item => `<span class="item-tag">${item.trim()}</span>`).join('');
 }
 
 let tab="ALL";
@@ -185,7 +178,7 @@ function render(){
   total++;
   if(q && !e[2].toLowerCase().includes(q)) return;
   shown++;
-  const r=rarity(e[9]); // Weight di chuyển lên index 9
+  const r=rarity(e[8]);
   html+=`
   <div class="card">
     <div class="name"><span class="icon">${e[1]}</span>${e[2]}</div>
@@ -196,7 +189,7 @@ function render(){
       <div><span class="primary-title">🟢 Primary Items:</span> <div class="item-list">${renderItems(e[6])}</div></div>
       <div><span class="secondary-title">🟡 Secondary Items:</span> <div class="item-list">${renderItems(e[7])}</div></div>
     </div>
-    <div class="weight">Weight: ${e[9]}</div>
+    <div class="weight">Weight: ${e[8]}</div>
   </div>`;
  });
  counter.textContent = tab==="ALL"
