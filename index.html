@@ -2,183 +2,205 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>📘 Enchants Đăng răng to</title>
+<title>Enchants Đăng Răng to</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <style>
-body{background:#0b1220;color:#e5e7eb;font-family:Arial,sans-serif;margin:0;padding:20px;line-height:1.4}
-h1{text-align:center;color:#38bdf8;font-size:2.8em;margin-bottom:8px}
-.count{text-align:center;color:#94a3b8;font-size:1.2em;margin-bottom:25px;font-weight:bold}
-.tabs,.controls{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:20px 0}
-button,input{padding:13px 20px;border-radius:12px;border:none;cursor:pointer;font-size:15px;transition:all 0.3s;font-weight:500}
-button{background:#1e293b;color:#e5e7eb}
-button:hover{background:#334155;transform:scale(1.05)}
-button.active{background:#38bdf8;color:#000;font-weight:bold;box-shadow:0 4px 12px rgba(56,189,248,0.4)}
-input{background:#020617;color:#e5e7eb;border:2px solid #475569;min-width:300px;padding:13px 16px;box-sizing:border-box}
-input::placeholder{color:#6b7280}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:25px}
-.card{background:#020617;border-radius:20px;padding:25px;box-shadow:0 8px 32px rgba(0,0,0,0.7);transition:all 0.3s}
-.card:hover{transform:translateY(-8px);box-shadow:0 12px 40px rgba(56,189,248,0.3)}
-.name{font-size:28px;font-weight:bold;color:#a5f3fc;margin-bottom:12px;display:flex;align-items:center;gap:15px}
-.name .icon{font-size:34px}
-.level{color:#facc15;font-size:18px;font-weight:bold;margin-bottom:8px}
-.tags{display:flex;flex-wrap:wrap;gap:8px;margin:15px 0}
-.tag{background:linear-gradient(45deg,#1e293b,#334155);padding:8px 16px;border-radius:25px;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,0.3)}
-.desc{font-size:16px;margin:15px 0;line-height:1.6}
-.levelbox{background:#1e293b;border-left:5px solid #38bdf8;padding:16px;margin:16px 0;border-radius:0 12px 12px 0;font-size:15px}
-.levelbox b{color:#facc15;display:block;margin-bottom:8px}
-.incompat{color:#f87171;font-weight:bold;margin-top:15px;padding:12px;background:rgba(248,113,113,0.1);border-radius:10px;border-left:4px solid #f87171}
-.noresults{text-align:center;color:#94a3b8;font-size:22px;padding:80px 40px;background:#020617;border-radius:20px;margin-top:40px}
-@media (max-width:768px){.grid{grid-template-columns:1fr;gap:20px}input{min-width:100%}}
+body{background:#020617;color:#e5e7eb;font-family:Segoe UI,Arial;margin:0;padding:20px}
+h1{text-align:center;color:#38bdf8}
+.sub{text-align:center;color:#94a3b8;margin-bottom:8px}
+.counter{text-align:center;color:#facc15;font-weight:bold;margin-bottom:16px}
+
+.tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:20px}
+.tab{padding:10px 18px;border-radius:14px;background:#020617;border:2px solid #334155;cursor:pointer;font-weight:bold}
+.tab.active{background:#38bdf8;color:#020617}
+
+.search{text-align:center;margin-bottom:22px}
+input{width:70%;padding:14px;border-radius:14px;border:2px solid #475569;background:#020617;color:#e5e7eb}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:22px}
+.card{background:#020617;border-radius:22px;padding:22px;box-shadow:0 10px 40px rgba(0,0,0,.8)}
+
+.name{font-size:26px;font-weight:bold}
+.icon{font-size:28px;margin-right:8px}
+.level{color:#facc15;margin:6px 0}
+.rarity-common{color:#4ade80}
+.rarity-rare{color:#60a5fa}
+.rarity-mythic{color:#c084fc}
+
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.tag{background:#1e293b;padding:6px 12px;border-radius:16px;font-size:13px}
+
+.desc{line-height:1.6}
+.incompat{margin-top:8px;color:#f87171;font-size:14px}
+.weight{margin-top:4px;color:#94a3b8;font-size:13px}
+
+.no{text-align:center;color:#94a3b8;font-size:22px;margin-top:60px}
 </style>
 </head>
 
 <body>
 
-<h1>📘 Enchants</h1>
-<div class="count" id="enchantCount">Đang tải...</div>
+<h1>📘 Lọ Thủ Enchants</h1>
+<div class="sub">FULL</div>
+<div class="counter" id="counter"></div>
 
 <div class="tabs">
-<button class="active" onclick="setTab('all',this)">🌐 Tất cả (64)</button>
-<button onclick="setTab('tool',this)">⛏ Tools (12)</button>
-<button onclick="setTab('weapon',this)">⚔ Weapons (25)</button>
-<button onclick="setTab('armor',this)">🛡 Armor (20)</button>
-<button onclick="setTab('bow',this)">🏹 Bows (8)</button>
-<button onclick="setTab('curse',this)">😈 Lời Nguyền (4)</button>
+  <div class="tab active" data-tab="ALL">🌐 ALL</div>
+  <div class="tab" data-tab="Armor">🛡️ Armor</div>
+  <div class="tab" data-tab="Bow">🏹 Bow</div>
+  <div class="tab" data-tab="Tool">⛏️ Tool</div>
+  <div class="tab" data-tab="Fishing">🎣 Fishing</div>
+  <div class="tab" data-tab="Weapon">⚔️ Weapon</div>
+  <div class="tab" data-tab="Universal">🌀 Universal</div>
 </div>
 
-<div class="controls">
-<input id="search" placeholder="🔍 Tìm tên enchant, item hoặc mô tả... (vd: excavation, sword)">
-<span id="countTab" style="padding:13px 20px;color:#94a3b8;font-size:15px">0 hiển thị</span>
+<div class="search">
+<input id="search" placeholder="🔍 Tìm enchant...">
 </div>
 
 <div class="grid" id="list"></div>
 
 <script>
-let currentTab = "all";
-
 const enchants = [
-  // Tools (12)
-  {n:"Excavation",t:"tool",i:"⛏",lvl:1,items:["Pickaxe","Shovel","Axe","Hoe"],d:"Đào vùng lớn 2x1 → + shape → 3x3 thay vì 1 block. Sneak để tắt.",lvls:["Scales: Vùng lớn dần"],bad:["tree_feller"]},
-  {n:"Telekinesis",t:"tool",i:"📦",lvl:1,items:["Pickaxe","Shovel","Axe","Hoe"],d:"Drop từ block tự động vào inventory.",lvls:["I: Hút tất cả"],bad:[]},
-  {n:"Deforestation",t:"tool",i:"🪓",lvl:1,items:["Axe"],d:"Sneak chặt 1 log → phá toàn cây + lá.",lvls:["I: Toàn cây (128 blocks max)"],bad:["excavation"]},
-  {n:"Sunforged",t:"tool",i:"🔥",lvl:1,items:["Pickaxe","Shovel","Axe","Hoe"],d:"Tự động smelt block khi đào.",lvls:["I: Auto-smelt"],bad:["silk_touch"]},
-  {n:"Illuminated",t:"tool",i:"💡",lvl:1,items:["Pickaxe"],d:"Shift+RClick đặt torch (tốn 3-9 dur, cooldown).",lvls:["I: Torch đặt"],bad:[]},
-  {n:"Harvesting",t:"tool",i:"🌾",lvl:1,items:["Hoe"],d:"RClick crop chín → harvest + replant ngay.",lvls:["I: Auto-replant"],bad:[]},
-  {n:"Kinship",t:"tool",i:"🔗",lvl:3,items:["Pickaxe"],d:"Đào ore trùng với nguyên liệu làm cúp → hồi độ bền (stone 0.05+, diamond 10+).",lvls:["I: Thấp","II: Trung","III: Cao"],bad:[]},
-  {n:"Quickened",t:"tool",i:"⚡",lvl:2,items:["Pickaxe","Shovel","Axe","Hoe","Sword"],d:"Haste I-II khi cầm.",lvls:["I: Haste I","II: Haste II"],bad:[]},
-  {n:"Grappling",t:"tool",i:"🎣",lvl:2,items:["Fishing Rod"],d:"Rod thành grappling hook, kéo về surface.",lvls:["I-II: Khoảng cách xa hơn"],bad:[]},
-  {n:"Harpooning",t:"tool",i:"🔱",lvl:5,items:["Trident"],d:"+0.75 → 3.75 damage trident.",lvls:["I-V: Damage tăng"],bad:[]},
-  {n:"Streak Damage",t:"tool",i:"🔥",lvl:3,items:["Sword","Axe"],d:"Damage tăng theo combo hit liên tục.",lvls:["I-III: Stack damage"],bad:[]},
-  {n:"Ground Stomping",t:"tool",i:"👣",lvl:2,items:["Boots"],d:"Rơi từ cao → shockwave damage mob dưới.",lvls:["I-II: Radius lớn"],bad:[]},
+/* ARMOR */
+["Armor","🛡️","Cold Steel","Applies Mining Fatigue effect to the attacker.","",3,[],5],
+["Armor","🛡️","Darkness Cloak","Applies Darkness effect to the attacker.","",3,[],10],
+["Armor","🛡️","Elemental Protection","Reduces potion and elemental damage.","",4,[],10],
+["Armor","🛡️","Fire Shield","Ignites the attacker.","",4,[],2],
+["Armor","🛡️","Flame Walker","Ability to walk on lava, immunity to magma damage.","Frost Walker",2,[],1],
+["Armor","🛡️","Hardened","Grants Resistance effect on receiving damage.","",2,[],5],
+["Armor","🛡️","Ice Shield","Freezes and slows down the attacker.","",3,[],10],
+["Armor","🛡️","Jumping","Grants Jump Boost effect.","",2,[],2],
+["Armor","🛡️","Kamikadze","Creates an explosion on death.","",3,[],5],
+["Armor","🛡️","Night Vision","Grants Night Vision effect.","",1,[],1],
+["Armor","🛡️","Rebound","Gives the effect of landing on a Slime Block.","Feather Falling",1,[],2],
+["Armor","🛡️","Regrowth","Restores certain amount of hearts over the time.","",4,[],2],
+["Armor","🛡️","Saturation","Restores certain amount of food over the time.","",2,[],2],
+["Armor","🛡️","Speed","Grants Speed effect.","",2,[],2],
+["Armor","🛡️","Stopping Force","Reduces Knockback when getting damage.","",3,[],5],
+["Armor","🛡️","Water Breathing","Grants Water Breathing effect.","",1,[],1],
 
-  // Weapons (25+ on-hit & melee)
-  {n:"Vampiric",t:"weapon",i:"🩸",lvl:5,items:["Sword","Axe"],d:"Lifesteal % damage dealt.",lvls:["I-V: 4-16%"],bad:[]},
-  {n:"Beheading",t:"weapon",i:"💀",lvl:1,items:["Sword","Axe"],d:"Cơ hội drop head mob/player.",lvls:["I: 5-15%"],bad:[]},
-  {n:"Sapping",t:"weapon",i:"📈",lvl:3,items:["Sword","Axe"],d:"+EXP drop từ mob kill.",lvls:["I-III: +25-75%"],bad:[]},
-  {n:"Toxic",t:"weapon",i:"☠",lvl:3,items:["Sword","Axe"],d:"Giảm healing target % sau hit.",lvls:["I-III: -25-75% 5-10s"],bad:[]},
-  {n:"Crushing",t:"weapon",i:"🔨",lvl:3,items:["Sword","Axe"],d:"+Damage vs heavy armor (iron/gold/diam).",lvls:["I-III: +10-20%/piece"],bad:[]},
-  {n:"Perforating",t:"weapon",i:"📍",lvl:3,items:["Sword","Axe"],d:"+Damage vs light armor (leather/chain/netherite).",lvls:["I-III: +10-20%/piece"],bad:[]},
-  {n:"Shockwave",t:"weapon",i:"🌪",lvl:1,items:["Sword","Axe"],d:"RClick tạo shockwave knockback.",lvls:["I: Radius 5-10"],bad:[]},
-  {n:"Barbarian",t:"weapon",i:"⚔",lvl:2,items:["Axe"],d:"+3-6 attack damage khi cầm.",lvls:["I-II: Damage +"],bad:[]},
-  {n:"Withering",t:"weapon",i:"☠️",lvl:3,items:["Sword","Bow","Crossbow"],d:"5-15% chance Wither.",lvls:["I-III: Chance + duration"],bad:[]},
-  {n:"Poisoning",t:"weapon",i:"🟢",lvl:3,items:["Sword","Bow","Crossbow"],d:"5-15% chance Poison.",lvls:["I-III: Lv1-3"],bad:[]},
-  {n:"Blinding",t:"weapon",i:"🌫️",lvl:3,items:["Sword","Bow","Crossbow","Axe"],d:"2-6% chance Blindness.",lvls:["I-III: 3-7s"],bad:[]},
-  {n:"Weakening",t:"weapon",i:"💤",lvl:2,items:["Sword","Bow","Crossbow"],d:"5-10% chance Weakness.",lvls:["I-II: Lv1-2"],bad:[]},
-  {n:"Blunt",t:"weapon",i:"🌀",lvl:2,items:["Sword","Bow","Crossbow","Axe"],d:"2-4% chance stun (không di chuyển).",lvls:["I-II: Duration +"],bad:[]},
-  {n:"Crippling",t:"weapon",i:"🐌",lvl:2,items:["Sword","Bow","Crossbow"],d:"4-8% chance Slowness.",lvls:["I-II: Lv1-2"],bad:[]},
-  {n:"Concussion",t:"weapon",i:"🤢",lvl:2,items:["Sword","Axe"],d:"Chance Nausea (nausea).",lvls:["I-II: 3-6s"],bad:[]},
-  {n:"Splintering",t:"weapon",i:"🛡️",lvl:3,items:["Sword"],d:"20-40% damage shield target.",lvls:["I-III: Shield dmg +"],bad:[]},
-  {n:"Exploding",t:"weapon",i:"💥",lvl:3,items:["Sword"],d:"Chance explode target.",lvls:["I-III: Nổ lớn dần"],bad:[]},
-  {n:"Pulling",t:"weapon",i:"🪢",lvl:3,items:["Sword"],d:"Kéo target lại gần.",lvls:["I-III: 30-70%"],bad:[]},
-  {n:"Damage Reduction",t:"weapon",i:"🛡️",lvl:3,items:["Sword"],d:"Giảm damage nhận khi hold.",lvls:["I-III: -10-30%"],bad:[]},
+/* BOW */
+["Bow","🏹","Bomber","Shoots TNT instead of arrows.","Non-Arrow enchants",3,[],1],
+["Bow","🏹","Confusing Arrows","Applies Nausea effect on arrows.","Non-Arrow enchants",3,[],10],
+["Bow","🏹","Darkness Arrows","Applies Darkness effect on arrows.","Non-Arrow enchants",3,[],10],
+["Bow","🏹","Dragonfire Arrows","Applies Dragon's Breath effect on arrows.","Non-Arrow enchants",3,[],2],
+["Bow","🏹","Electrified Arrows","Summons Lightning on hit.","Non-Arrow enchants",3,[],5],
+["Bow","🏹","Ender Bow","Shoots Ender Pearls instead of arrows.","Non-Arrow enchants",1,[],1],
+["Bow","🏹","Explosive Arrows","Arrows explode on hit.","Non-Arrow enchants",3,[],5],
+["Bow","🏹","Flare","Places a Torch where arrow lands.","Non-Arrow enchants",1,[],5],
+["Bow","🏹","Ghast","Shoots Fireball instead of arrows.","Non-Arrow enchants",1,[],1],
+["Bow","🏹","Hover","Applies Levitation effect on arrows.","Non-Arrow enchants",3,[],10],
+["Bow","🏹","Lingering","Arrows with lingering effect on hit.","Non-Arrow enchants",3,[],2],
+["Bow","🏹","Poisoned Arrows","Applies Poison effect on arrows.","Non-Arrow enchants",3,[],5],
+["Bow","🏹","Sniper","Increases projectile speed.","",2,[],10],
+["Bow","🏹","Vampiric Arrows","Restores health on hit.","Non-Arrow enchants",3,[],2],
+["Bow","🏹","Withered Arrows","Applies Wither effect on arrows.","Non-Arrow enchants",3,[],5],
 
-  // Bows (8)
-  {n:"Rapid Shot",t:"bow",i:"🏹",lvl:3,items:["Bow","Crossbow"],d:"Bắn nhiều arrow liên tục.",lvls:["I: 2","II: 3","III: 4"],bad:[]},
-  {n:"AOE Arrows",t:"bow",i:"💥",lvl:3,items:["Bow"],d:"Damage AOE quanh target.",lvls:["I-III: Radius +"],bad:[]},
-  {n:"Ionizing",t:"bow",i:"⚡",lvl:3,items:["Bow","Crossbow"],d:"5-15% lightning strike.",lvls:["I-III: Chance +"],bad:[]},
-  {n:"Exploding Arrows",t:"bow",i:"💣",lvl:2,items:["Bow"],d:"Arrow explode on hit.",lvls:["I-II: Power +"],bad:[]},
+/* TOOL */
+["Tool","⛏️","Blast Mining","Mines blocks with explosions.","Tunnel, Veinminer",5,[],2],
+["Tool","⛏️","Glass Breaker","Breaks glass instantly.","",1,[],10],
+["Tool","⛏️","Haste","Applies Haste effect on mining.","",3,[],2],
+["Tool","⛏️","Lucky Miner","Produces more XP from mined blocks.","",3,[],5],
+["Tool","⛏️","Replanter","Replants crops on harvest.","",1,[],1],
+["Tool","⛏️","Silk Chest","Drops chests that keep their content.","",1,[],1],
+["Tool","⛏️","Silk Spawner","Chance to obtain a Monster Spawner.","Smelter",1,[],1],
+["Tool","⛏️","Smelter","Smelts dropped items automatically.","Silk Touch, Silk Spawner",5,[],5],
+["Tool","⛏️","Telekinesis","Moves block loot directly to inventory.","",1,[],1],
+["Tool","⛏️","Treefeller","Cuts down entire trees.","",1,[],2],
+["Tool","⛏️","Tunnel","Mines in area patterns.","Veinminer, Blast Mining",3,[],1],
+["Tool","⛏️","Veinminer","Mines whole ore veins.","Tunnel, Blast Mining",3,[],1],
 
-  // Armor (20+)
-  {n:"Rejuvenation",t:"armor",i:"🔄",lvl:3,items:["All"],d:"Hồi dur chậm liên tục.",lvls:["I-III: 0.1-0.3/s"],bad:["mending"]},
-  {n:"Lava Walker",t:"armor",i:"🌋",lvl:2,items:["Boots"],d:"Lava → magma tạm (r=0-2), tốn dur.",lvls:["I-II: Radius +"],bad:["frost_walker"]},
-  {n:"Shielding",t:"armor",i:"🛡",lvl:3,items:["Chestplate"],d:"20-40% deflect projectile.",lvls:["I-III: Chance +"],bad:[]},
-  {n:"Neutralizer",t:"armor",i:"🧪",lvl:1,items:["Shield"],d:"Block potion splash/cloud khi blocking.",lvls:["I: Block all (tốt/xấu)"],bad:[]},
-  {n:"Potency",t:"armor",i:"💊",lvl:2,items:["Chestplate","Elytra"],d:"Potion mạnh hơn (amp +50-100%) nhưng ngắn (-20-40%).",lvls:["I-II: Buff +"],bad:[]},
-  {n:"Steady",t:"armor",i:"⚓",lvl:2,items:["Leggings"],d:"Giảm knockback 20-40%.",lvls:["I-II: Resist +"],bad:[]},
-  {n:"Metabolism",t:"armor",i:"🍗",lvl:2,items:["Helmet","Chestplate","Leggings","Boots"],d:"Hồi hunger chậm khi di chuyển.",lvls:["I-II: 0.04-0.07/s"],bad:[]},
-  {n:"Vigorous",t:"armor",i:"💚",lvl:5,items:["Helmet","Chestplate","Leggings","Boots"],d:"+1 heart/level max health.",lvls:["I-V: +1-5 hearts"],bad:[]},
-  {n:"Plating",t:"armor",i:"🛠",lvl:3,items:["Elytra"],d:"+2 armor/level.",lvls:["I-III: +2-6 armor"],bad:[]},
-  {n:"Wings",t:"armor",i:"🦅",lvl:3,items:["Boots"],d:"Bay tạm 5-15s, tốn dur, recharge ground.",lvls:["I-III: Thời gian +"],bad:[]},
-  {n:"Fleeting",t:"armor",i:"💨",lvl:2,items:["Boots"],d:"+20-30% speed.",lvls:["I-II: Speed +"],bad:[]},
-  {n:"Basalt Skin",t:"armor",i:"🏔",lvl:1,items:["Chestplate"],d:"Fire resist, nhưng slow khi cháy.",lvls:["I: Resist + slow"],bad:[]},
-  {n:"Leaping",t:"armor",i:"🦘",lvl:2,items:["Boots"],d:"Jump Boost I-II.",lvls:["I-II: Jump +"],bad:[]},
-  {n:"Blessing",t:"armor",i:"🍀",lvl:3,items:["Chestplate"],d:"Luck I-III.",lvls:["I-III: Luck +"],bad:[]},
-  {n:"Pact of the Faerie",t:"armor",i:"🧚",lvl:2,items:["Chestplate","Elytra"],d:"Thu nhỏ 25-50%, giảm reach.",lvls:["I-II: Scale -"],bad:["pact_of_the_jotunn"]},
-  {n:"Pact of the Jotunn",t:"armor",i:"🗿",lvl:2,items:["Chestplate"],d:"To hơn 25-50%, +reach nhưng to.",lvls:["I-II: Scale +"],bad:["pact_of_the_faerie"]},
-  {n:"Strider",t:"armor",i:"🚶",lvl:1,items:["Leggings"],d:"Step up full blocks.",lvls:["I: Step height 1"],bad:[]},
-  {n:"Aspect of the Enderman",t:"armor",i:"👹",lvl:3,items:["Chestplate"],d:"+2-6 block reach.",lvls:["I-III: Reach +"],bad:[]},
-  {n:"Nightvision",t:"armor",i:"🌙",lvl:1,items:["Helmet"],d:"Night Vision liên tục.",lvls:["I: NV"],bad:[]},
-  {n:"Gills",t:"armor",i:"🐟",lvl:1,items:["Helmet"],d:"Water Breathing.",lvls:["I: Breathe"],bad:[]},
-  {n:"Vitality",t:"armor",i:"❤️",lvl:5,items:["Helmet","Chestplate","Leggings","Boots"],d:"+5%/level healing (max 100%).",lvls:["I-V: Heal +"],bad:[]},
-  {n:"Soulbound",t:"armor",i:"🔒",lvl:1,items:["All"],d:"Giữ item khi chết.",lvls:["I: Keep on death"],bad:[]},
+/* FISHING */
+["Fishing","🎣","Auto Reel","Automatically reels on bite.","",1,[],1],
+["Fishing","🎣","Curse of Drowned","Chance to fish up a Drowned.","",3,[],5],
+["Fishing","🎣","Double Catch","Increases caught items x2.","",3,[],2],
+["Fishing","🎣","River Master","Increases casting distance.","",5,[],10],
+["Fishing","🎣","Seasoned Angler","Increases gained XP.","",3,[],5],
+["Fishing","🎣","Survivalist","Automatically cooks caught fish.","",1,[],2],
 
-  // Curse (4)
-  {n:"Brittle",t:"curse",i:"💔",lvl:3,items:["All"],d:"Hỏng dur nhanh hơn (curse).",lvls:["I-III: Dur loss +"],bad:[]},
-  {n:"Heavy",t:"curse",i:"⚖️",lvl:3,items:["Armor"],d:"Giảm speed (curse).",lvls:["I-III: Slowness +"],bad:[]},
-  {n:"Hunger",t:"curse",i:"🍽️",lvl:3,items:["Armor"],d:"Tiêu hunger nhanh hơn (curse).",lvls:["I-III: Hunger drain +"],bad:[]},
-  {n:"Berserk",t:"curse",i:"😡",lvl:1,items:["Weapon"],d:"+Damage dealt nhưng +taken (curse).",lvls:["I: Risky damage"],bad:[]}
+/* WEAPON */
+["Weapon","⚔️","Bane of Netherspawn","Increases damage to nether mobs.","",5,[],10],
+["Weapon","⚔️","Blindness","Applies Blindness effect on target.","",2,[],10],
+["Weapon","⚔️","Confusion","Applies Nausea effect on target.","",2,[],10],
+["Weapon","⚔️","Cure","Cures Piglins and Zombie Villagers on kill.","",3,[],10],
+["Weapon","⚔️","Curse of Death","Chance to die when killing a player.","",3,[],2],
+["Weapon","⚔️","Cutter","Damages and drops target's armor.","",3,[],2],
+["Weapon","⚔️","Decapitator","Allows obtaining target's head.","",2,[],2],
+["Weapon","⚔️","Double Strike","Chance to deal double damage.","",2,[],1],
+["Weapon","⚔️","Exhaust","Applies Hunger effect.","",4,[],10],
+["Weapon","⚔️","Ice Aspect","Freezes and slows target.","",3,[],10],
+["Weapon","⚔️","Infernus","Tridents set targets on fire.","",3,[],10],
+["Weapon","⚔️","Nimble","Moves entity drops to inventory.","",1,[],2],
+["Weapon","⚔️","Paralyze","Applies Mining Fatigue effect.","",5,[],5],
+["Weapon","⚔️","Rage","Grants Strength in combat.","",2,[],5],
+["Weapon","⚔️","Rocket","Launches target into the air.","",3,[],5],
+["Weapon","⚔️","Swiper","Steals player's XP.","",3,[],2],
+["Weapon","⚔️","Temper","Damage increases when low health.","",5,[],1],
+["Weapon","⚔️","Thrifty","Drops mob spawn eggs.","",3,[],2],
+["Weapon","⚔️","Thunder","Summons lightning with extra damage.","",5,[],5],
+["Weapon","⚔️","Vampire","Steals target's health.","",3,[],2],
+["Weapon","⚔️","Venom","Applies Poison effect.","",2,[],10],
+["Weapon","⚔️","Village Defender","Increases damage to Illagers.","",5,[],10],
+["Weapon","⚔️","Wisdom","Produces more XP from mobs.","",5,[],5],
+["Weapon","⚔️","Wither","Applies Wither effect.","",2,[],5],
+
+/* UNIVERSAL */
+["Universal","🌀","Curse of Breaking","Takes more durability points.","Unbreaking",3,[],10],
+["Universal","🌀","Curse of Fragility","Prevents item from being anviled.","",1,[],10],
+["Universal","🌀","Curse of Mediocrity","Disenchants block and mob loot.","",3,[],5],
+["Universal","🌀","Curse of Misfortune","Reduces loot to zero.","Fortune, Looting",3,[],5],
+["Universal","🌀","Restore","Saves item from breaking once.","",3,[],2],
+["Universal","🌀","Soulbound","Prevents dropping item on death.","Curse of Vanishing",1,[],2],
 ];
 
-document.getElementById("enchantCount").textContent = `Gồm ${enchants.length} Enchants`;
+function rarity(weight){
+ if(weight<=2) return ["Mythic","rarity-mythic"];
+ if(weight<=5) return ["Rare","rarity-rare"];
+ return ["Common","rarity-common"];
+}
 
-const list = document.getElementById("list");
-const search = document.getElementById("search");
-const countTab = document.getElementById("countTab");
+let tab="ALL";
+const list=document.getElementById("list");
+const search=document.getElementById("search");
+const counter=document.getElementById("counter");
 
-function setTab(tab, btn) {
-  currentTab = tab;
-  document.querySelectorAll(".tabs button").forEach(b => b.classList.remove("active"));
-  btn.classList.add("active");
+function render(){
+ const q=search.value.toLowerCase();
+ let shown=0,total=0,html="";
+ enchants.forEach(e=>{
+  if(tab!=="ALL" && e[0]!==tab) return;
+  total++;
+  if(q && !e[2].toLowerCase().includes(q)) return;
+  shown++;
+  const r=rarity(e[7]);
+  html+=`
+  <div class="card">
+    <div class="name"><span class="icon">${e[1]}</span>${e[2]}</div>
+    <div class="level">Max level: ${e[5]} • <span class="${r[1]}">${r[0]}</span></div>
+    <div class="desc">${e[3]}</div>
+    <div class="incompat">❌ Incompatible: ${e[4]||"None"}</div>
+    <div class="weight">Weight: ${e[7]}</div>
+  </div>`;
+ });
+ counter.textContent = tab==="ALL"
+  ? `Đang xem: ${shown} / ${enchants.length} enchant`
+  : `Đang xem: ${shown} / ${total} enchant`;
+ list.innerHTML = shown?html:`<div class="no">Không có enchant</div>`;
+}
+
+document.querySelectorAll(".tab").forEach(t=>{
+ t.onclick=()=>{
+  document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
+  t.classList.add("active");
+  tab=t.dataset.tab;
   render();
-}
+ };
+});
 
-function render() {
-  const q = search.value.toLowerCase();
-  let html = "";
-  let count = 0;
-
-  enchants.forEach(e => {
-    const matchTab = currentTab === "all" || e.t === currentTab;
-    const matchSearch = e.n.toLowerCase().includes(q) || 
-                        e.d.toLowerCase().includes(q) || 
-                        e.items.some(i => i.toLowerCase().includes(q));
-    if (matchTab && matchSearch) {
-      count++;
-      const tags = e.items.map(i => `<span class="tag">${i}</span>`).join("");
-      const levels = e.lvls.join("<br>");
-      const incompat = e.bad.length ? `<div class="incompat">❌ Khắc với: ${e.bad.join(", ")}</div>` : "";
-      html += `
-        <div class="card">
-          <div class="name"><span class="icon">${e.i}</span>${e.n}</div>
-          <div class="level">Max Level: ${e.lvl}</div>
-          <div class="tags">${tags}</div>
-          <p class="desc">${e.d}</p>
-          <div class="levelbox"><b>Chi tiết Level:</b><br>${levels}</div>
-          ${incompat}
-        </div>`;
-    }
-  });
-
-  list.innerHTML = count ? html : '<div class="noresults">❌ Không tìm thấy...<br>Thử từ khóa khác hoặc tab khác nhé! 📝</div>';
-  countTab.textContent = `${count} hiển thị`;
-}
-
-search.oninput = render;
+search.oninput=render;
 render();
 </script>
 
 </body>
 </html>
-
-
